@@ -1,6 +1,6 @@
 import socket
 
-HOST = "10.114.162.203"
+HOST = "CHANGE IP "
 PORT = 1337
 
 username = b"admin&password=tUp3rPaSs1"
@@ -29,14 +29,8 @@ with socket.create_connection((HOST, PORT)) as s:
     ct_hex = text.split("Leaked ciphertext: ")[1].splitlines()[0].strip()
     ct = bytearray.fromhex(ct_hex)
 
-    # We want to change the last byte of plaintext block 2 from 't' to 's'
-    # In CBC:
-    # P2 = D(C2) XOR C1
-    # so changing the last byte of C1 changes the last byte of P2
-    #
-    # old_plain_byte ^ old_cipher_byte ^ new_cipher_byte = new_plain_byte
-    # therefore:
-    # new_cipher_byte = old_cipher_byte ^ ord('t') ^ ord('s')
+  
+    # Modify ciphertext to flip a plaintext byte
 
     ct[15] ^= ord('t') ^ ord('s')
 
